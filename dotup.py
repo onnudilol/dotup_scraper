@@ -25,40 +25,50 @@ def get_page(page_number=''):
     return soop
 
 
-def get_links(link_list):
+def get_links(link_list, unsorted_links):
     for link in link_list.find_all('a', href=True):
-        links.append(link['href'])
+        unsorted_links.append(link['href'])
 
 
-def filter_links(unsorted):
-    for i in unsorted:
+def filter_links(unsorted_list, sorted_list):
+    for i in unsorted_list:
         if id_re.search(i):
-            files.append(id_re.search(i).group(1))
-    unsorted[:] = []
+            sorted_list.append(id_re.search(i).group(1))
+    unsorted_list[:] = []
+
+
+def output_url(output_file, input_list):
+    with open(output_file, 'a') as url_list:
+        for i in input_list:
+            url_list.write('http://www.dotup.org/uploda/www.dotup.org' + i + '\n')
 
 
 def crawler(count=''):
     h = get_page(count)
-    get_links(h)
-    filter_links(links)
+    get_links(h, links)
+    filter_links(links, files)
 
 
 if __name__ == "__main__":
+
+    print('oldest id= ' + oldest_id)
     crawler()
+    output_url('url_list.txt', files)
 
     while oldest_id not in files:
+        files = []
         crawler(page)
+        output_url('url_list.txt', files)
         counter += 1
         page = str(counter) + '.html'
 
-    id_index = files.index(oldest_id)
-    files = files[:id_index]
+    else:
+        id_index = files.index(oldest_id)
+        files = files[:id_index]
+        print(files)
+        output_url('url_list.txt', files)
 
     config['Files']['oldest_id'] = files[0]
 
     with open('settings.ini', 'w') as settings:
         config.write(settings)
-
-    with open('url_list.txt', 'w') as urls:
-        for f in files:
-            urls.write('http://www.dotup.org/uploda/www.dotup.org' + f + '\n')
