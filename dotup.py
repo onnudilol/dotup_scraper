@@ -18,11 +18,6 @@ page = str(counter) + '.html'
 id_re = re.compile(r'org([0-9]+.[a-z0-9]{3})')
 
 
-def get_links(link_list):
-    for link in link_list.find_all('a', href=True):
-        links.append(link['href'])
-
-
 def get_page(page_number=''):
     req = requests.get('http://www.dotup.org/' + page_number)
     content = req.content
@@ -30,10 +25,16 @@ def get_page(page_number=''):
     return soop
 
 
+def get_links(link_list):
+    for link in link_list.find_all('a', href=True):
+        links.append(link['href'])
+
+
 def filter_links(unsorted):
     for i in unsorted:
         if id_re.search(i):
             files.append(id_re.search(i).group(1))
+    unsorted[:] = []
 
 
 def crawler(count=''):
