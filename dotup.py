@@ -50,6 +50,9 @@ if __name__ == "__main__":
         counter += 1
         page = str(counter) + '.html'
 
+    id_index = files.index(oldest_id)
+    files = files[:id_index]
+
     config['Files']['oldest_id'] = files[0]
 
     with open('settings.ini', 'w') as settings:
