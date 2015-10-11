@@ -12,7 +12,7 @@ files = []
 oldest_id = config['Files']['oldest_id']
 
 # This regular expression returns the file IDs
-id_re = re.compile(r'org([0-9]+.[a-z0-9]{3})')
+id_re = re.compile(r'org([0-9]+.[a-z0-9]{3,4})')
 
 
 def get_page(page_number=''):
