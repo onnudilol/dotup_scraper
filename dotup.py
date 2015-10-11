@@ -64,7 +64,6 @@ if __name__ == "__main__":
             page = str(counter) + '.html'
 
         else:
-            print('reached oldest_id')
             id_index = files.index(oldest_id)
             files = files[:id_index]
             output_url('url_list.txt', files)
