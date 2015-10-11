@@ -56,7 +56,6 @@ if __name__ == "__main__":
     output_url('url_list.txt', files)
 
     while counter != 309:
-        print(counter)
         while oldest_id not in files:
             files = []
             crawler(page)
