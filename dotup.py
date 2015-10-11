@@ -51,7 +51,7 @@ def crawler(count=''):
 
 if __name__ == "__main__":
 
-    open('url_list.txt', w).close()
+    open('url_list.txt', 'w').close()
     crawler()
     output_url('url_list.txt', files)
 
