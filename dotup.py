@@ -58,7 +58,6 @@ if __name__ == "__main__":
     while oldest_id not in files:
         files = []
         crawler(page)
-        print(files)
 
         if oldest_id in files:
             id_index = files.index(oldest_id)
