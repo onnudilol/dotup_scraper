@@ -52,8 +52,15 @@ if __name__ == "__main__":
     page = str(counter) + '.html'
 
     open('url_list.txt', 'w').close()
+
     crawler()
-    output_url('url_list.txt', files)
+
+    if oldest_id in files:
+        id_index = files.index(oldest_id)
+        final = files[:id_index]
+        output_url('url_list.txt', final)
+    else:
+        output_url('url_list.txt', files)
 
     while oldest_id not in files:
         files = []
