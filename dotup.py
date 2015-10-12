@@ -12,7 +12,7 @@ files = []
 oldest_id = config['Files']['oldest_id']
 
 # This regular expression returns the file IDs
-id_re = re.compile(r'org([0-9]+.[a-z0-9]{3})')
+id_re = re.compile(r'org([0-9]+.[a-z0-9]{3,4})')
 
 
 def get_page(page_number=''):
@@ -48,28 +48,31 @@ def crawler(count=''):
 
 if __name__ == "__main__":
 
-    counter = 308
+    counter = 2
     page = str(counter) + '.html'
 
     open('url_list.txt', 'w').close()
     crawler()
     output_url('url_list.txt', files)
 
-    while counter != 309:
-        print(counter)
-        while oldest_id not in files:
-            files = []
-            crawler(page)
-            output_url('url_list.txt', files)
-            counter += 1
-            page = str(counter) + '.html'
+    while oldest_id not in files:
+        files = []
+        crawler(page)
+        print(files)
+
+        if oldest_id in files:
+            id_index = files.index(oldest_id)
+            final = files[:id_index]
+            output_url('url_list.txt', final)
+            break
 
         else:
-            print('reached oldest_id')
-            id_index = files.index(oldest_id)
-            files = files[:id_index]
-            output_url('url_list.txt', files)
-            break
+            if counter != 309:
+                output_url('url_list.txt', files)
+                counter += 1
+                page = str(counter) + '.html'
+            else:
+                break
 
     with open('url_list.txt', 'r') as url_list:
         first = url_list.readline()
