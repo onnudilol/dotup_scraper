@@ -49,7 +49,7 @@ def crawler(count=''):
 
 if __name__ == "__main__":
 
-    counter = 90
+    counter = 2
     page = str(counter) + '.html'
 
     open('url_list.txt', 'w').close()
