@@ -12,8 +12,8 @@ files = []
 oldest_id = config['Files']['oldest_id']
 
 # This regular expression returns the file IDs
-id_url = re.compile(r'org([0-9]+.[a-z0-9]{3,4})')
-id_num = re.compile(r'([0-9]+).[a-z0-9]{3,4}')
+id_url = re.compile(r'org([0-9]+.[a-z0-9]{1,4})')
+id_num = re.compile(r'([0-9]+).[a-z0-9]{1,4}')
 
 
 def get_page(page_number=''):
@@ -49,7 +49,7 @@ def crawler(count=''):
 
 if __name__ == "__main__":
 
-    counter = 2
+    counter = 90
     page = str(counter) + '.html'
 
     open('url_list.txt', 'w').close()
