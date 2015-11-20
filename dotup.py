@@ -76,6 +76,7 @@ if __name__ == "__main__":
         else:
 
             if int(id_num.search(files[-1]).group(1)) < int(id_num.search(oldest_id).group(1)):
+                output_url('url_list.txt', files)
                 break
 
             elif counter != 309:
