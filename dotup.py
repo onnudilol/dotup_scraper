@@ -8,7 +8,7 @@ import sys
 config = configparser.ConfigParser()
 config.read('settings.ini')
 
-oldest_id = config['Files']['oldest_id']
+
 
 # This regular expression returns the file IDs
 id_url = re.compile(r'org([0-9]+.[a-z0-9]{1,4})')
@@ -66,20 +66,24 @@ def main(mode="default"):
 
     if mode == 'light':
         maximum = 250
+        output_file = 'url_list_light.txt'
+        oldest_id = config['Files']['oldest_id_light']
 
     else:
         maximum = 309
+        output_file = 'url_list.txt'
+        oldest_id = config['Files']['oldest_id']
 
-    open('url_list.txt', 'w').close()
+    open(output_file, 'w').close()
 
     crawler(links=links, files=files, mode=mode)
 
     if oldest_id in files:
         id_index = files.index(oldest_id)
         final = files[:id_index]
-        output_url('url_list.txt', final, mode=mode)
+        output_url(output_file, final, mode=mode)
     else:
-        output_url('url_list.txt', files, mode=mode)
+        output_url(output_file, files, mode=mode)
 
     while oldest_id not in files:
         files = []
@@ -88,7 +92,7 @@ def main(mode="default"):
         if oldest_id in files:
             id_index = files.index(oldest_id)
             final = files[:id_index]
-            output_url('url_list.txt', final, mode=mode)
+            output_url(output_file, final, mode=mode)
             break
 
         else:
@@ -96,20 +100,24 @@ def main(mode="default"):
             if int(id_num.search(files[-1]).group(1)) < int(id_num.search(oldest_id).group(1)):
                 files = [x.group(0) for f in files for x in [id_num.search(f)]
                          if int(x.group(1)) > int(id_num.search(oldest_id).group(1))]
-                output_url('url_list.txt', files, mode=mode)
+                output_url(output_file, files, mode=mode)
                 break
 
             elif counter != maximum:
-                output_url('url_list.txt', files, mode=mode)
+                output_url(output_file, files, mode=mode)
                 counter += 1
                 page = str(counter) + '.html'
 
             else:
                 break
 
-    with open('url_list.txt', 'r') as url_list:
+    with open(output_file, 'r') as url_list:
         first = url_list.readline()
-        config['Files']['oldest_id'] = id_url.search(first).group(1)
+
+        if mode == 'light':
+            config['Files']['oldest_id_light'] = id_url.search(first).group(1)
+        else:
+            config['Files']['oldest_id'] = id_url.search(first).group(1)
 
     with open('settings.ini', 'w') as settings:
         config.write(settings)
