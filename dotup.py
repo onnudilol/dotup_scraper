@@ -9,7 +9,6 @@ config = configparser.ConfigParser()
 config.read('settings.ini')
 
 
-
 # This regular expression returns the file IDs
 id_url = re.compile(r'org([0-9]+.[a-z0-9]{1,4})')
 id_num = re.compile(r'([0-9]+).[a-z0-9]{1,4}')
