@@ -44,7 +44,7 @@ def output_url(output_file, input_list, mode='default'):
         for i in input_list:
 
             if mode == 'light':
-                url_list.write('http://www.light.dotup.org/uploda/light.dotup.org' + i + '\n')
+                url_list.write('http://light.dotup.org/uploda/light.dotup.org' + i + '\n')
 
             else:
                 url_list.write('http://www.dotup.org/uploda/www.dotup.org' + i + '\n')
