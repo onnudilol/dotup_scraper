@@ -1,6 +1,16 @@
 # About
 
-A simple script to scrape urls from [dotup.org](http://www.dotup.org/)
+A simple script to scrape urls from [dotup.org](http://www.dotup.org/) or [light.dotup.org](http://light.dotup.org/).
+
+# Usage
+
+<pre><code>python dotup.py</code></pre>
+
+will output a list of URLs to the current working directory.
+
+<pre><code>python dotup.py light</code></pre>
+
+will do the same for light.dotup.org URLs.
 
 # Settings
 
