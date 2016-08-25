@@ -96,7 +96,10 @@ def main(mode="default"):
 
         else:
 
-            if int(id_num.search(files[-1]).group(1)) < int(id_num.search(oldest_id).group(1)):
+            if counter > maximum:
+                break
+
+            elif int(id_num.search(files[-1]).group(1)) < int(id_num.search(oldest_id).group(1)):
                 files = [x.group(0) for f in files for x in [id_num.search(f)]
                          if int(x.group(1)) > int(id_num.search(oldest_id).group(1))]
                 output_url(output_file, files, mode=mode)
@@ -106,9 +109,6 @@ def main(mode="default"):
                 output_url(output_file, files, mode=mode)
                 counter += 1
                 page = str(counter) + '.html'
-
-            else:
-                break
 
     with open(output_file, 'r') as url_list:
         first = url_list.readline()
