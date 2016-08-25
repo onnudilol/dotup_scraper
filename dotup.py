@@ -100,8 +100,10 @@ def main(mode="default"):
                 break
 
             elif int(id_num.search(files[-1]).group(1)) < int(id_num.search(oldest_id).group(1)):
-                files = [x.group(0) for f in files for x in [id_num.search(f)]
-                         if int(x.group(1)) > int(id_num.search(oldest_id).group(1))]
+                # nested list comprehension creates list of matching strings f for every file in files if the
+                # int value of the filename is more recent than the filename of the oldest file in settings.ini
+                files = [f.group(0) for file in files for f in [id_num.search(file)]
+                         if int(f.group(1)) > int(id_num.search(oldest_id).group(1))]
                 output_url(output_file, files, mode=mode)
                 break
 
