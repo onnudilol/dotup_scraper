@@ -1,6 +1,7 @@
 # About
 
 A simple script to scrape urls from [dotup.org](http://www.dotup.org/) or [light.dotup.org](http://light.dotup.org/).
+Deprecated by [dotup-scrapy](https://github.com/onnudilol/dotup-scrapy).
 
 # Usage
 
